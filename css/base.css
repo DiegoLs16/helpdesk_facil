@@ -1,0 +1,197 @@
+/* Estilos compartilhados por todas as páginas */
+:root {
+    --bg: #f4f7fb;
+    --surface: #fff;
+    --text: #182230;
+    --muted: #667085;
+    --line: #e5eaf1;
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, Segoe UI, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5
+}
+
+a {
+    color: var(--blue);
+    text-decoration: none
+}
+
+.topbar {
+    height: auto;
+    min-height: 72px;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px max(calc((100% - 1120px)/2), 24px);
+    gap: 20px
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #182230;
+    font-size: 18px;
+    font-weight: 700
+}
+
+.brand strong {
+    color: var(--blue);
+    margin-left: -7px
+}
+
+.brand-icon {
+    display: inline-grid;
+    place-items: center;
+    background: var(--blue);
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font-weight: 800
+}
+
+.topbar nav {
+    display: flex;
+    align-items: center;
+    gap: 24px
+}
+
+.topbar nav a {
+    color: #475467;
+    font-weight: 600
+}
+
+.topbar nav .nav-button {
+    background: var(--blue);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 9px
+}
+
+.container {
+    max-width: 1120px;
+    margin: 38px auto;
+    padding: 0 24px;
+    min-height: calc(100vh - 160px)
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 26px
+}
+
+.page-heading h1 {
+    font-size: 29px;
+    letter-spacing: -.7px;
+    margin: 3px 0 4px
+}
+
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--blue);
+    font-weight: 800;
+    margin: 0
+}
+
+.muted {
+    color: var(--muted);
+    margin: 0
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 9px;
+    background: var(--blue);
+    color: #fff;
+    padding: 11px 16px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap
+}
+
+.button:hover,
+.nav-button:hover {
+    background: var(--blue-dark)
+}
+
+.button-secondary {
+    background: #fff;
+    color: #344054;
+    border: 1px solid #d0d5dd
+}
+
+.button-secondary:hover {
+    background: #f9fafb
+}
+
+.panel {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 2px 6px #172b4d05;
+    overflow: hidden
+}
+
+.empty {
+    padding: 35px;
+    text-align: center;
+    color: var(--muted)
+}
+
+.footer {
+    text-align: center;
+    padding: 22px;
+    color: #98a2b3;
+    font-size: 12px;
+    border-top: 1px solid var(--line);
+    background: #fff
+}
+
+@media(max-width:700px) {
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 20px
+    }
+
+    .topbar nav {
+        gap: 14px;
+        flex-wrap: wrap
+    }
+
+    .container {
+        padding: 0 15px;
+        margin: 25px auto
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column
+    }
+
+    .page-heading h1 {
+        font-size: 25px
+    }
+}

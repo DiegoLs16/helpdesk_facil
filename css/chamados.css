@@ -1,0 +1,137 @@
+/* Estilos exclusivos da listagem de chamados */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--line)
+}
+
+.search-form input {
+    flex: 1;
+    min-width: 180px;
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    background: #fff;
+    color: #182230;
+    font: inherit;
+    outline: none
+}
+
+.search-form input:focus {
+    border-color: #84adff;
+    box-shadow: 0 0 0 3px #2563eb16
+}
+
+.table-wrap {
+    overflow-x: auto
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    white-space: nowrap
+}
+
+th {
+    background: #f9fafb;
+    color: #667085;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    font-weight: 700
+}
+
+th,
+td {
+    padding: 15px 20px;
+    border-top: 1px solid #edf0f5
+}
+
+td {
+    color: #475467
+}
+
+small {
+    display: block;
+    color: #98a2b3;
+    margin-top: 3px
+}
+
+.ticket-title {
+    font-weight: 700;
+    color: #182230
+}
+
+.status,
+.priority {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 700
+}
+
+.status-aberto {
+    background: #fff4d6;
+    color: #975a00
+}
+
+.status-andamento {
+    background: #eaf2ff;
+    color: #1d4ed8
+}
+
+.status-resolvido {
+    background: #dcfce7;
+    color: #166534
+}
+
+.priority-alta {
+    color: #b42318;
+    background: #fee4e2
+}
+
+.priority-media {
+    color: #975a00;
+    background: #fff4d6
+}
+
+.priority-baixa {
+    color: #344054;
+    background: #eaecf0
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px
+}
+
+.actions form {
+    margin: 0
+}
+
+.link-danger {
+    border: 0;
+    padding: 0;
+    background: none;
+    color: #b42318;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer
+}
+
+@media(max-width:700px) {
+    .search-form {
+        flex-wrap: wrap;
+        padding: 14px
+    }
+
+    .search-form input {
+        flex-basis: 100%
+    }
+}

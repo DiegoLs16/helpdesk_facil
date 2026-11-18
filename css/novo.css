@@ -1,0 +1,80 @@
+/* Estilos exclusivos dos formulário de novo chamado */
+.form-panel {
+    max-width: 800px;
+    padding: 26px
+}
+
+.ticket-form {
+    display: flex;
+    flex-direction: column;
+    gap: 19px
+}
+
+.ticket-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #344054;
+    font-weight: 650
+}
+
+.ticket-form input,
+.ticket-form select,
+.ticket-form textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    background: #fff;
+    color: #182230;
+    font: inherit;
+    outline: none
+}
+
+.ticket-form input:focus,
+.ticket-form select:focus,
+.ticket-form textarea:focus {
+    border-color: #84adff;
+    box-shadow: 0 0 0 3px #2563eb16
+}
+
+.ticket-form textarea {
+    resize: vertical
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-top: 5px
+}
+
+.alert {
+    background: #fff1f0;
+    color: #b42318;
+    border: 1px solid #fecdca;
+    border-radius: 9px;
+    padding: 10px 16px;
+    margin-bottom: 20px
+}
+
+.alert p {
+    margin: 4px 0
+}
+
+@media(max-width:700px) {
+    .form-row {
+        grid-template-columns: 1fr
+    }
+
+    .form-panel {
+        padding: 18px
+    }
+}

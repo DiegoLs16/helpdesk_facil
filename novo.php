@@ -2,6 +2,8 @@
 require_once __DIR__ . '/config/conexao.php';
 require_once __DIR__ . '/includes/funcoes.php';
 
+exigirLogin();
+
 $usuarios = $pdo->query('SELECT id_usuario, nome FROM usuarios ORDER BY nome')->fetchAll();
 $categorias = $pdo->query('SELECT id_categoria, nome FROM categorias ORDER BY nome')->fetchAll();
 $erros = [];

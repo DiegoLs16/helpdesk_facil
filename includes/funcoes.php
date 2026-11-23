@@ -10,10 +10,6 @@ function redirecionar(string $destino): never
     exit;
 }
 
-/**
- * Procura um solicitante pelo nome (sem diferenciar maiusculas/acentos, conforme a collation do banco).
- * Se nao existir, cadastra automaticamente e devolve o id.
- */
 function obterOuCriarUsuario(PDO $pdo, string $nome): int
 {
     $nome = trim(preg_replace('/\s+/', ' ', $nome));
@@ -21,9 +17,41 @@ function obterOuCriarUsuario(PDO $pdo, string $nome): int
     $stmt->execute([$nome]);
     $id = $stmt->fetchColumn();
     if ($id !== false) {
-        return (int)$id;
+        return (int) $id;
     }
     $stmt = $pdo->prepare('INSERT INTO usuarios (nome, email) VALUES (?, ?)');
     $stmt->execute([$nome, '']);
-    return (int)$pdo->lastInsertId();
+    return (int) $pdo->lastInsertId();
+}
+
+function login(PDO $pdo, string $email, string $senha): bool
+{
+    $stmt = $pdo->prepare("SELECT id_usuario, nome, senha, permissao FROM usuarios WHERE email = ?");
+    $stmt->execute([trim($email)]);
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($usuario && password_verify($senha, $usuario['senha'])) {
+        $_SESSION['id_usuario'] = $usuario['id_usuario'];
+        $_SESSION['nome'] = $usuario['nome'];
+        $_SESSION['permissao'] = $usuario['permissao'];
+        return true;
+    }
+    return false;
+
+}
+
+function exigirLogin(): void
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    if (!isset($_SESSION['id_usuario'])) {
+        header('Location: login.php');
+        exit;
+    }
+}
+
+function isAdmin(): bool
+{
+    return ($_SESSION['permissao'] ?? '') === 'Administrador';
 }

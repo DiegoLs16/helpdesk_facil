@@ -2,30 +2,28 @@ CREATE DATABASE IF NOT EXISTS helpdesk_facil
   CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE helpdesk_facil;
 
--- Recria as tabelas para evitar conflitos com versões antigas do banco.
--- ATENÇÃO: a importação apaga os registros anteriores destas três tabelas.
+
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS chamados;
 DROP TABLE IF EXISTS categorias;
 DROP TABLE IF EXISTS usuarios;
 SET FOREIGN_KEY_CHECKS = 1;
 
--- Tabela de usuarios que podem abrir chamados
 CREATE TABLE usuarios (
   id_usuario INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL,
+  senha VARCHAR(100) NOT NULL,
+  permissao ENUM ('Administrador', 'Usuario') NOT NULL,
   telefone VARCHAR(20)
 ) ENGINE=InnoDB;
 
--- Categorias disponiveis para classificar os chamados
 CREATE TABLE categorias (
   id_categoria INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(50) NOT NULL,
   descricao VARCHAR(150)
 ) ENGINE=InnoDB;
 
--- Chamados vinculados a um usuario e a uma categoria
 CREATE TABLE chamados (
   id_chamado INT PRIMARY KEY AUTO_INCREMENT,
   titulo VARCHAR(100) NOT NULL,
@@ -41,11 +39,10 @@ CREATE TABLE chamados (
     REFERENCES categorias (id_categoria)
 ) ENGINE=InnoDB;
 
--- Dados iniciais para facilitar os primeiros testes
-INSERT INTO usuarios (nome, email, telefone) VALUES
-('Carlos Silva', 'carlos@email.com', '(48) 99999-1001'),
-('Ana Souza', 'ana@email.com', '(48) 99999-1002'),
-('Pedro Lima', 'pedro@email.com', '(48) 99999-1003');
+INSERT INTO usuarios (nome, email,permissao, telefone) VALUES
+('Carlos Silva', 'carlos@email.com','12345678','Administrador', '(48) 99999-1001'),
+('Ana Souza', 'ana@email.com','12345678', 'Usuario', '(48) 99999-1002'),
+('Pedro Lima', 'pedro@email.com','12345678', 'Usuario', '(48) 99999-1003');
 
 INSERT INTO categorias (nome, descricao) VALUES
 ('Hardware', 'Problemas com computadores e equipamentos'),

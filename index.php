@@ -2,6 +2,8 @@
 require_once __DIR__ . '/config/conexao.php';
 require_once __DIR__ . '/includes/funcoes.php';
 
+exigirLogin();
+
 $totais = ['Aberto' => 0, 'Em andamento' => 0, 'Resolvido' => 0];
 $stmt = $pdo->query('SELECT status, COUNT(*) AS total FROM chamados GROUP BY status');
 foreach ($stmt->fetchAll() as $linha) $totais[$linha['status']] = (int)$linha['total'];
@@ -20,7 +22,9 @@ require __DIR__ . '/includes/header.php';
     <h1>Painel de chamados</h1>
     <p class="muted">Acompanhe as solicitações de suporte técnico.</p>
   </div>
-  <a class="button" href="novo.php">+ Abrir chamado</a>
+  <div class="heading-actions">
+    <a class="button button-secondary" href="logout.php" title="Encerrar sessão">Sair</a>
+  </div>
 </section>
 <section class="stats">
   <article class="stat-card"><span class="stat-label">Chamados abertos</span><strong><?= $totais['Aberto'] ?></strong><span class="stat-dot amber">●</span></article>

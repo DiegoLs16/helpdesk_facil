@@ -2,6 +2,8 @@
 require_once __DIR__ . '/config/conexao.php';
 require_once __DIR__ . '/includes/funcoes.php';
 
+exigirLogin();
+
 $busca = trim($_GET['busca'] ?? '');
 $sql = 'SELECT c.*, u.nome AS solicitante, cat.nome AS categoria
         FROM chamados c

@@ -105,7 +105,7 @@ function celulaStatus(array $chamado, string $retorno, string $busca = ''): stri
     $html .= '<input type="hidden" name="retorno" value="' . e($retorno) . '">';
     $html .= '<input type="hidden" name="busca" value="' . e($busca) . '">';
     $html .= '<select name="status" class="status status-select status-' . $classe . '"';
-    
+
     foreach (['Aberto', 'Em andamento', 'Resolvido'] as $opcao) {
         $html .= '<option value="' . e($opcao) . '"' . ($opcao === $status ? ' selected' : '') . '>' . e($opcao) . '</option>';
     }

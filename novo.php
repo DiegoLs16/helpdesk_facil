@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ((int)$validCategoria->fetchColumn() === 0) $erros[] = 'A categoria selecionada não existe.';
   if (!$erros) {
     $idUsuario = obterOuCriarUsuario($pdo, $valores['solicitante']);
-    $stmt = $pdo->prepare('INSERT INTO chamados (titulo, descricao, prioridade, id_usuario, id_categoria) VALUES (:titulo, :descricao, :prioridade, :id_usuario, :id_categoria)');
-    $stmt->execute(['titulo' => $valores['titulo'], 'descricao' => $valores['descricao'], 'prioridade' => $valores['prioridade'], 'id_usuario' => $idUsuario, 'id_categoria' => (int)$valores['id_categoria']]);
+    $stmt = $pdo->prepare('INSERT INTO chamados (titulo, descricao, prioridade, id_usuario, id_categoria, id_criador) VALUES (:titulo, :descricao, :prioridade, :id_usuario, :id_categoria, :id_criador)');
+    $stmt->execute(['titulo' => $valores['titulo'], 'descricao' => $valores['descricao'], 'prioridade' => $valores['prioridade'], 'id_usuario' => $idUsuario, 'id_categoria' => (int)$valores['id_categoria'], 'id_criador' => (int)$_SESSION['id_usuario']]);
     redirecionar('chamados.php');
   }
 }

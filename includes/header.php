@@ -26,14 +26,12 @@ $cssPagina = $cssPagina ?? 'index.css';
     </nav>
   </header>
   <main class="container">
-    <<<<<<< HEAD
-      <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash'];
-        unset($_SESSION['flash']); ?>
-      <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
-    <?php endif; ?>
-    =======
     <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash'];
       unset($_SESSION['flash']); ?>
       <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
     <?php endif; ?>
-    >>>>>>> b40858aabcccdda7925152aa12ba66ca8bc4d75e
+    
+    <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash'];
+      unset($_SESSION['flash']); ?>
+      <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
+    <?php endif; ?>

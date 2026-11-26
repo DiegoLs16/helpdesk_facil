@@ -1,7 +1,7 @@
 HELPDESK FACIL - PHP + MySQL
 
 REQUISITOS
-- XAMPP com Apache e MySQL/MariaDB
+- XAMPP com Apache e MySQL
 - Navegador
 - VS Code (opcional)
 
@@ -11,17 +11,7 @@ INSTALACAO
 3. Acesse http://localhost/phpmyadmin
 4. Importe o arquivo database.sql. Ele cria/recria as tres tabelas: usuarios, categorias e chamados.
    IMPORTANTE: o SQL apaga os registros antigos dessas tres tabelas para corrigir estruturas de versões anteriores. Faça backup antes se precisar manter dados.
-   (Se você pular este passo, o sistema cria o banco sozinho na primeira vez que abrir a página.)
-5. Acesse http://localhost/helpdesk_facil/ e entre com um dos usuarios de teste.
-
-CADASTRO
-- Na tela de login, o link "Criar conta" abre o cadastro (nome, e-mail, telefone opcional e senha de no minimo 8 caracteres).
-- Toda conta criada ali e do tipo Usuario e ja entra no sistema ao terminar. Administrador so existe pelo banco (carlos@email.com).
-
-USUARIOS DE TESTE (senha de todos: 12345678)
-- carlos@email.com  -> Administrador (pode alterar o status dos chamados)
-- ana@email.com     -> Usuario
-- pedro@email.com   -> Usuario
+5. Acesse http://localhost/helpdesk_facil/
 
 BANCO DE DADOS
 - usuarios: armazena nome, email e telefone dos solicitantes.

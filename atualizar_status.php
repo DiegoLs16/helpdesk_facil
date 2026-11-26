@@ -6,7 +6,6 @@ exigirLogin();
 
 $retorno = ($_POST['retorno'] ?? '') === 'index' ? 'index.php' : 'chamados.php';
 
-// Somente o administrador altera o status, e apenas por POST.
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isAdmin()) {
     $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
     $status = $_POST['status'] ?? '';
@@ -16,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isAdmin()) {
         $stmt->execute([$status, $id]);
     }
 
-    // Mantém a busca que estava ativa na lista de chamados.
     $busca = trim($_POST['busca'] ?? '');
     if ($retorno === 'chamados.php' && $busca !== '') {
         $retorno .= '?busca=' . urlencode($busca);

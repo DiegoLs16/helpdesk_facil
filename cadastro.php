@@ -3,7 +3,6 @@ session_start();
 require_once __DIR__ . '/config/conexao.php';
 require_once __DIR__ . '/includes/funcoes.php';
 
-// Quem já está logado não precisa criar conta.
 if (isset($_SESSION['id_usuario'])) {
   header('Location: index.php');
   exit;
@@ -19,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $senha = (string) ($_POST['senha'] ?? '');
   $confirmar = (string) ($_POST['confirmar'] ?? '');
 
-  // ---- Validações ----
   if (mb_strlen($valores['nome']) < 2) {
     $erros[] = 'Informe seu nome (mínimo de 2 letras).';
   } elseif (mb_strlen($valores['nome']) > 100) {
@@ -40,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $erros[] = 'A confirmação da senha não confere.';
   }
 
-  // ---- Conferências no banco ----
   $idReaproveitar = null;
   if (!$erros) {
     $stmt = $pdo->prepare('SELECT 1 FROM usuarios WHERE email = ? LIMIT 1');
@@ -56,14 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erros[] = 'Já existe uma conta com esse nome. Use outro nome (por exemplo, com sobrenome).';
         break;
       }
-      // Solicitante que só foi digitado em algum chamado (sem login): a conta passa a ser dele.
       if ($idReaproveitar === null) {
         $idReaproveitar = (int) $existente['id_usuario'];
       }
     }
   }
 
-  // ---- Grava a conta (sempre como "Usuario": o tipo nunca vem do formulário) ----
   if (!$erros) {
     $hash = password_hash($senha, PASSWORD_DEFAULT);
     $telefone = $valores['telefone'] !== '' ? $valores['telefone'] : null;
@@ -76,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ->execute([$valores['nome'], $valores['email'], $hash, $telefone]);
     }
 
-    // Já entra no sistema logo após criar a conta.
     if (login($pdo, $valores['email'], $senha)) {
       definirFlash('ok', 'Conta criada com sucesso. Bem-vindo(a), ' . $valores['nome'] . '!');
       header('Location: index.php');
@@ -204,5 +198,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </footer>
   </main>
 </body>
+<<<<<<< HEAD
 
 </html>
+=======
+</html>
+
+>>>>>>> 78dbd40f29d89a7c6e82498874644f14c9b85af6

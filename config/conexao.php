@@ -1,5 +1,4 @@
 <?php
-// Dados da conexão (XAMPP: usuário root, senha vazia, porta 3306).
 $host = 'localhost';
 $porta = 3306;
 $banco = 'helpdesk_facil';
@@ -21,7 +20,6 @@ try {
             $opcoesPdo
         );
     } catch (PDOException $e) {
-        // Erro 1049 = banco inexistente: cria tudo a partir do database.sql e conecta de novo.
         if ((int) $e->getCode() !== 1049 && strpos($e->getMessage(), '1049') === false) {
             throw $e;
         }
@@ -40,8 +38,6 @@ try {
         );
     }
 
-    // Migração para bancos criados antes da regra de dono do chamado:
-    // adiciona a coluna id_criador (quem abriu o chamado) e preenche os chamados já existentes.
     $coluna = $pdo->query("SHOW COLUMNS FROM chamados LIKE 'id_criador'")->fetch();
     if (!$coluna) {
         $pdo->exec('ALTER TABLE chamados ADD COLUMN id_criador INT NULL');
@@ -51,7 +47,6 @@ try {
             $pdo->exec('ALTER TABLE chamados ADD CONSTRAINT fk_chamados_criador FOREIGN KEY (id_criador)
                         REFERENCES usuarios (id_usuario) ON DELETE SET NULL');
         } catch (PDOException $ignorado) {
-            // A chave estrangeira é opcional; o sistema funciona sem ela.
         }
     }
 } catch (PDOException $e) {

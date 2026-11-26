@@ -25,10 +25,8 @@ $chamado['solicitante'] = (string) $nomeSolicitante->fetchColumn();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   foreach (['titulo', 'descricao', 'prioridade'] as $campo)
     $chamado[$campo] = trim($_POST[$campo] ?? '');
-  // Apenas o administrador muda o status; os demais mantêm o status atual do chamado.
   if (isAdmin())
     $chamado['status'] = trim($_POST['status'] ?? '');
-  // Apenas o administrador troca o solicitante; os demais mantêm o solicitante atual do chamado.
   if (isAdmin())
     $chamado['solicitante'] = trim($_POST['solicitante'] ?? '');
   $chamado['id_categoria'] = (int) ($_POST['id_categoria'] ?? 0);
@@ -73,14 +71,14 @@ require __DIR__ . '/includes/header.php';
   <form method="post" class="ticket-form">
     <label>Título do problema<input name="titulo" maxlength="100" required value="<?= e($chamado['titulo']) ?>"></label>
     <?php if (isAdmin()): ?>
-    <label>Solicitante<input name="solicitante" list="lista-solicitantes" maxlength="100" required autocomplete="off"
-        value="<?= e($chamado['solicitante']) ?>" placeholder="Digite o nome do solicitante"></label>
-    <datalist id="lista-solicitantes"><?php foreach ($usuarios as $u): ?>
-        <option value="<?= e($u['nome']) ?>"></option><?php endforeach; ?>
-    </datalist>
+      <label>Solicitante<input name="solicitante" list="lista-solicitantes" maxlength="100" required autocomplete="off"
+          value="<?= e($chamado['solicitante']) ?>" placeholder="Digite o nome do solicitante"></label>
+      <datalist id="lista-solicitantes"><?php foreach ($usuarios as $u): ?>
+          <option value="<?= e($u['nome']) ?>"></option><?php endforeach; ?>
+      </datalist>
     <?php else: ?>
-    <label>Solicitante<input value="<?= e($chamado['solicitante']) ?>" readonly aria-readonly="true" style="background:#f2f4f7;cursor:not-allowed">
-      <small style="color:#667085;font-weight:400">Somente o administrador pode alterar o solicitante.</small></label>
+      <label>Solicitante<input value="<?= e($chamado['solicitante']) ?>" readonly aria-readonly="true" style="background:#f2f4f7;cursor:not-allowed">
+        <small style="color:#667085;font-weight:400">Somente o administrador pode alterar o solicitante.</small></label>
     <?php endif; ?>
     <div class="form-row">
       <label>Categoria<select name="id_categoria" required><?php foreach ($categorias as $cat): ?>

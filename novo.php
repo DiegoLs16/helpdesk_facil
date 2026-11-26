@@ -8,11 +8,10 @@ $usuarios = $pdo->query('SELECT id_usuario, nome FROM usuarios ORDER BY nome')->
 $categorias = $pdo->query('SELECT id_categoria, nome FROM categorias ORDER BY nome')->fetchAll();
 $erros = [];
 $valores = ['titulo' => '', 'descricao' => '', 'solicitante' => '', 'id_categoria' => '', 'prioridade' => 'Media'];
-// Usuário comum abre chamado somente no próprio nome; só o administrador escolhe outro solicitante.
 if (!isAdmin()) $valores['solicitante'] = $_SESSION['nome'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   foreach ($valores as $campo => $padrao) $valores[$campo] = trim($_POST[$campo] ?? $padrao);
-  if (!isAdmin()) $valores['solicitante'] = $_SESSION['nome'];   // ignora qualquer nome enviado pelo formulário
+  if (!isAdmin()) $valores['solicitante'] = $_SESSION['nome'];
   if ($valores['titulo'] === '') $erros[] = 'Informe o título do chamado.';
   if ($valores['descricao'] === '') $erros[] = 'Informe a descrição do problema.';
   if ($valores['solicitante'] === '') $erros[] = 'Informe o nome do solicitante.';

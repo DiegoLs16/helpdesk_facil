@@ -26,6 +26,29 @@ $cssPagina = $cssPagina ?? 'index.css';
     </nav>
   </header>
   <main class="container">
+<<<<<<< HEAD
   <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash']; unset($_SESSION['flash']); ?>
     <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
   <?php endif; ?>
+=======
+
+    <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash'];
+      unset($_SESSION['flash']); ?>
+      <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
+    <?php endif; ?>
+
+    <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash'];
+      unset($_SESSION['flash']); ?>
+      <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
+    <?php endif; ?>
+
+    <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash'];
+      unset($_SESSION['flash']); ?>
+      <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
+    <?php endif; ?>
+
+    <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash'];
+      unset($_SESSION['flash']); ?>
+      <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
+    <?php endif; ?>
+>>>>>>> be3f9c31126104d3614a8fe7fe09ac2e16fd4c99

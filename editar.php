@@ -12,6 +12,10 @@ $stmt->execute([$id]);
 $chamado = $stmt->fetch();
 if (!$chamado)
   redirecionar('chamados.php');
+if (!podeGerenciarChamado($chamado)) {
+  definirFlash('erro', 'Você só pode editar os chamados que você mesmo abriu.');
+  redirecionar('chamados.php');
+}
 $usuarios = $pdo->query('SELECT id_usuario, nome FROM usuarios ORDER BY nome')->fetchAll();
 $categorias = $pdo->query('SELECT id_categoria, nome FROM categorias ORDER BY nome')->fetchAll();
 $erros = [];
@@ -19,8 +23,11 @@ $nomeSolicitante = $pdo->prepare('SELECT nome FROM usuarios WHERE id_usuario = ?
 $nomeSolicitante->execute([$chamado['id_usuario']]);
 $chamado['solicitante'] = (string) $nomeSolicitante->fetchColumn();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  foreach (['titulo', 'descricao', 'prioridade', 'status'] as $campo)
+  foreach (['titulo', 'descricao', 'prioridade'] as $campo)
     $chamado[$campo] = trim($_POST[$campo] ?? '');
+  // Apenas o administrador muda o status; os demais mantêm o status atual do chamado.
+  if (isAdmin())
+    $chamado['status'] = trim($_POST['status'] ?? '');
   $chamado['solicitante'] = trim($_POST['solicitante'] ?? '');
   $chamado['id_categoria'] = (int) ($_POST['id_categoria'] ?? 0);
   if ($chamado['titulo'] === '' || $chamado['descricao'] === '')

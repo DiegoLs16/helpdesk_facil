@@ -23,7 +23,7 @@ require __DIR__ . '/includes/header.php';
     <p class="muted">Acompanhe as solicitações de suporte técnico.</p>
   </div>
   <div class="heading-actions">
-    <a class="button button-secondary" href="logout.php" title="Encerrar sessão">Sair</a>
+    <a class="button" href="novo.php">+ Novo chamado</a>
   </div>
 </section>
 <section class="stats">
@@ -55,10 +55,10 @@ require __DIR__ . '/includes/header.php';
         <tbody>
           <?php foreach ($recentes as $c): ?>
             <tr>
-              <td><a class="ticket-title" href="editar.php?id=<?= (int)$c['id_chamado'] ?>">#<?= (int)$c['id_chamado'] ?> · <?= e($c['titulo']) ?></a><small><?= e($c['categoria']) ?></small></td>
+              <td><?= tituloChamado($c) ?><small><?= e($c['categoria']) ?></small></td>
               <td><?= e($c['solicitante']) ?></td>
               <td><span class="priority priority-<?= strtolower(e($c['prioridade'])) ?>"><?= e($c['prioridade']) ?></span></td>
-              <td><span class="status status-<?= $c['status'] === 'Em andamento' ? 'andamento' : strtolower($c['status']) ?>"><?= e($c['status']) ?></span></td>
+              <td><?= celulaStatus($c, 'index') ?></td>
               <td><?= date('d/m/Y H:i', strtotime($c['data_abertura'])) ?></td>
             </tr>
           <?php endforeach; ?>

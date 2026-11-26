@@ -42,9 +42,15 @@ CREATE TABLE chamados (
 ) ENGINE=InnoDB;
 
 INSERT INTO usuarios (nome, email, senha, permissao, telefone) VALUES
+<<<<<<< HEAD
 ('Carlos Silva', 'carlos@email.com', '$2y$12$f4DZ1mGSvLaEcVD2Qc2bl.hvmfPCibp3LZHyfYL5l6o2.1AQpZsna', 'Administrador', '(48) 99999-1001'),
 ('Ana Souza', 'ana@email.com', '$2y$12$f4DZ1mGSvLaEcVD2Qc2bl.hvmfPCibp3LZHyfYL5l6o2.1AQpZsna', 'Usuario', '(48) 99999-1002'),
 ('Pedro Lima', 'pedro@email.com', '$2y$12$f4DZ1mGSvLaEcVD2Qc2bl.hvmfPCibp3LZHyfYL5l6o2.1AQpZsna', 'Usuario', '(48) 99999-1003');
+=======
+('Carlos Silva', 'carlos@email.com', '12345678', 'Administrador', '(48) 99999-1001'),
+('Ana Souza', 'ana@email.com', '12345678', 'Usuario', '(48) 99999-1002'),
+('Pedro Lima', 'pedro@email.com', '12345678', 'Usuario', '(48) 99999-1003');
+>>>>>>> 88014356061da972a4a6f2740bb8590f5ad8a826
 
 INSERT INTO categorias (nome, descricao) VALUES
 ('Hardware', 'Problemas com computadores e equipamentos'),

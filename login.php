@@ -1,18 +1,25 @@
 <?php
-    session_start();
-    require_once("conexao.php");
-    require_once("funcoes.php");
+session_start();
+require_once __DIR__ . '/config/conexao.php';
+require_once __DIR__ . '/includes/funcoes.php';
 
-    $erro = '';
+$erro = '';
+$emailDigitado = '';
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-      if(login($pdo, $_POST['email'], $_POST['senha'])){
-        header("Location: index.php");
-        exit;
-      } else {
-        $erro = "Email ou senha incorretos";
-      }
-    }
+if (isset($_SESSION['id_usuario'])) {
+  header("Location: index.php");
+  exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $emailDigitado = trim($_POST['email'] ?? '');
+  if (login($pdo, $emailDigitado, (string) ($_POST['senha'] ?? ''))) {
+    header("Location: index.php");
+    exit;
+  } else {
+    $erro = "Email ou senha incorretos";
+  }
+}
 ?>
 
 <!doctype html>
@@ -40,9 +47,13 @@
         <p>Informe suas credenciais para gerenciar chamados</p>
       </header>
 
+      <?php if ($erro): ?>
+        <div class="login-erro" role="alert"><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></div>
+      <?php endif; ?>
+
       <form class="login-form" action="login.php" method="POST" autocomplete="on">
-        <div class="form-group <?php echo $erro ? 'error' : ''; ?>" >
-          <label for="email">E-mail</label> 
+        <div class="form-group <?php echo $erro ? 'error' : ''; ?>">
+          <label for="email">E-mail</label>
           <div class="input-wrapper">
             <span class="input-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -50,14 +61,14 @@
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
               </svg>
             </span>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
-              placeholder="exemplo@email.com" 
-              required 
-              autofocus
-            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="exemplo@email.com"
+              value="<?= htmlspecialchars($emailDigitado, ENT_QUOTES, 'UTF-8') ?>"
+              required
+              autofocus>
           </div>
         </div>
 
@@ -70,20 +81,18 @@
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
             </span>
-            <input 
-              type="password" 
-              id="senha" 
-              name="senha" 
-              placeholder="Digite sua senha" 
-              required
-            >
-            <button 
-              type="button" 
-              id="toggleSenha" 
-              class="password-toggle" 
-              aria-label="Mostrar ou ocultar senha" 
-              title="Mostrar senha"
-            >
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              placeholder="Digite sua senha"
+              required>
+            <button
+              type="button"
+              id="toggleSenha"
+              class="password-toggle"
+              aria-label="Mostrar ou ocultar senha"
+              title="Mostrar senha">
               <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
                 <circle cx="12" cy="12" r="3"></circle>
@@ -97,7 +106,7 @@
         </button>
 
         <div class="login-footer-info">
-          Não possui uma conta? <a href="#">Solicite acesso ao administrador</a>
+          Ainda não tem conta? <a href="cadastro.php">Criar conta</a>
         </div>
       </form>
     </section>

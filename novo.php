@@ -8,8 +8,11 @@ $usuarios = $pdo->query('SELECT id_usuario, nome FROM usuarios ORDER BY nome')->
 $categorias = $pdo->query('SELECT id_categoria, nome FROM categorias ORDER BY nome')->fetchAll();
 $erros = [];
 $valores = ['titulo' => '', 'descricao' => '', 'solicitante' => '', 'id_categoria' => '', 'prioridade' => 'Media'];
+// Usuário comum abre chamado somente no próprio nome; só o administrador escolhe outro solicitante.
+if (!isAdmin()) $valores['solicitante'] = $_SESSION['nome'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   foreach ($valores as $campo => $padrao) $valores[$campo] = trim($_POST[$campo] ?? $padrao);
+  if (!isAdmin()) $valores['solicitante'] = $_SESSION['nome'];   // ignora qualquer nome enviado pelo formulário
   if ($valores['titulo'] === '') $erros[] = 'Informe o título do chamado.';
   if ($valores['descricao'] === '') $erros[] = 'Informe a descrição do problema.';
   if ($valores['solicitante'] === '') $erros[] = 'Informe o nome do solicitante.';
@@ -20,9 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $validCategoria->execute([$valores['id_categoria']]);
   if ((int)$validCategoria->fetchColumn() === 0) $erros[] = 'A categoria selecionada não existe.';
   if (!$erros) {
-    $idUsuario = obterOuCriarUsuario($pdo, $valores['solicitante']);
-    $stmt = $pdo->prepare('INSERT INTO chamados (titulo, descricao, prioridade, id_usuario, id_categoria) VALUES (:titulo, :descricao, :prioridade, :id_usuario, :id_categoria)');
-    $stmt->execute(['titulo' => $valores['titulo'], 'descricao' => $valores['descricao'], 'prioridade' => $valores['prioridade'], 'id_usuario' => $idUsuario, 'id_categoria' => (int)$valores['id_categoria']]);
+    $idUsuario = isAdmin() ? obterOuCriarUsuario($pdo, $valores['solicitante']) : (int)$_SESSION['id_usuario'];
+    $stmt = $pdo->prepare('INSERT INTO chamados (titulo, descricao, prioridade, id_usuario, id_categoria, id_criador) VALUES (:titulo, :descricao, :prioridade, :id_usuario, :id_categoria, :id_criador)');
+    $stmt->execute(['titulo' => $valores['titulo'], 'descricao' => $valores['descricao'], 'prioridade' => $valores['prioridade'], 'id_usuario' => $idUsuario, 'id_categoria' => (int)$valores['id_categoria'], 'id_criador' => (int)$_SESSION['id_usuario']]);
     redirecionar('chamados.php');
   }
 }
@@ -44,8 +47,13 @@ require __DIR__ . '/includes/header.php';
   <?php if ($erros): ?><div class="alert"><?php foreach ($erros as $erro): ?><p><?= e($erro) ?></p><?php endforeach; ?></div><?php endif; ?>
   <form method="post" class="ticket-form">
     <label>Título do problema<input name="titulo" maxlength="100" required value="<?= e($valores['titulo']) ?>" placeholder="Ex.: Computador não liga"></label>
+    <?php if (isAdmin()): ?>
     <label>Solicitante<input name="solicitante" list="lista-solicitantes" maxlength="100" required autocomplete="off" value="<?= e($valores['solicitante']) ?>" placeholder="Digite o nome do solicitante"></label>
     <datalist id="lista-solicitantes"><?php foreach ($usuarios as $u): ?><option value="<?= e($u['nome']) ?>"></option><?php endforeach; ?></datalist>
+    <?php else: ?>
+    <label>Solicitante<input value="<?= e($_SESSION['nome']) ?>" readonly aria-readonly="true" style="background:#f2f4f7;cursor:not-allowed">
+      <small style="color:#667085;font-weight:400">O chamado será aberto no seu nome.</small></label>
+    <?php endif; ?>
     <div class="form-row">
       <label>Categoria<select name="id_categoria" required>
           <option value="">Selecione</option><?php foreach ($categorias as $cat): ?><option value="<?= (int)$cat['id_categoria'] ?>" <?= (string)$valores['id_categoria'] === (string)$cat['id_categoria'] ? 'selected' : '' ?>><?= e($cat['nome']) ?></option><?php endforeach; ?>

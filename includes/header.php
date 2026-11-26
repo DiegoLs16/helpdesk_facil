@@ -19,6 +19,13 @@ $cssPagina = $cssPagina ?? 'index.css';
     <nav>
       <a href="index.php">Painel</a>
       <a href="chamados.php">Chamados</a>
+      <?php if (isset($_SESSION['nome'])): ?>
+        <span class="nav-usuario">Olá, <?= e($_SESSION['nome']) ?><?= isAdmin() ? ' (Administrador)' : '' ?></span>
+        <a class="nav-button" href="logout.php">Sair</a>
+      <?php endif; ?>
     </nav>
   </header>
   <main class="container">
+  <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash']; unset($_SESSION['flash']); ?>
+    <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
+  <?php endif; ?>

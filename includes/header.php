@@ -26,24 +26,6 @@ $cssPagina = $cssPagina ?? 'index.css';
     </nav>
   </header>
   <main class="container">
-<<<<<<< HEAD
   <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash']; unset($_SESSION['flash']); ?>
     <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
   <?php endif; ?>
-=======
-<<<<<<< HEAD
-  <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash']; unset($_SESSION['flash']); ?>
-    <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
-  <?php endif; ?>
-=======
-    <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash'];
-      unset($_SESSION['flash']); ?>
-      <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
-    <?php endif; ?>
-    
-    <?php if (!empty($_SESSION['flash'])): $flash = $_SESSION['flash'];
-      unset($_SESSION['flash']); ?>
-      <div class="flash flash-<?= e($flash['tipo']) ?>" role="alert"><?= e($flash['texto']) ?></div>
-    <?php endif; ?>
->>>>>>> 88014356061da972a4a6f2740bb8590f5ad8a826
->>>>>>> 78dbd40f29d89a7c6e82498874644f14c9b85af6

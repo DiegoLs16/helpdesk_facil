@@ -12,6 +12,16 @@ $opcoesPdo = [
 ];
 
 try {
+    $criarBanco = function () use ($host, $porta, $usuario, $senha, $opcoesPdo) {
+        $admin = new PDO("mysql:host={$host};port={$porta};charset=utf8mb4", $usuario, $senha, $opcoesPdo);
+        $sql = preg_replace('/^\s*--.*$/m', '', file_get_contents(__DIR__ . '/../database.sql'));
+        foreach (explode(';', $sql) as $comando) {
+            if (trim($comando) !== '') {
+                $admin->exec($comando);
+            }
+        }
+    };
+
     try {
         $pdo = new PDO(
             "mysql:host={$host};port={$porta};dbname={$banco};charset=utf8mb4",
@@ -23,19 +33,18 @@ try {
         if ((int) $e->getCode() !== 1049 && strpos($e->getMessage(), '1049') === false) {
             throw $e;
         }
-        $admin = new PDO("mysql:host={$host};port={$porta};charset=utf8mb4", $usuario, $senha, $opcoesPdo);
-        $sql = preg_replace('/^\s*--.*$/m', '', file_get_contents(__DIR__ . '/../database.sql'));
-        foreach (explode(';', $sql) as $comando) {
-            if (trim($comando) !== '') {
-                $admin->exec($comando);
-            }
-        }
+        $criarBanco();
         $pdo = new PDO(
             "mysql:host={$host};port={$porta};dbname={$banco};charset=utf8mb4",
             $usuario,
             $senha,
             $opcoesPdo
         );
+    }
+
+    // Banco existe, mas sem as tabelas (ex.: importação interrompida): cria tudo.
+    if (!$pdo->query("SHOW TABLES LIKE 'usuarios'")->fetch()) {
+        $criarBanco();
     }
 
     $coluna = $pdo->query("SHOW COLUMNS FROM chamados LIKE 'id_criador'")->fetch();

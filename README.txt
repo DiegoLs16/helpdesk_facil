@@ -1,7 +1,7 @@
 HELPDESK FACIL - PHP + MySQL
 
 REQUISITOS
-- XAMPP com Apache e MySQL/MariaDB
+- XAMPP com Apache e MySQL
 - Navegador
 - VS Code (opcional)
 
@@ -14,7 +14,7 @@ INSTALACAO
    (Se você pular este passo, o sistema cria o banco sozinho na primeira vez que abrir a página.)
 5. Acesse http://localhost/helpdesk_facil/ e entre com um dos usuarios de teste.
 
-USUARIOS DE TESTE (senha de todos: 12345678)
+USUARIOS DE TESTE
 - carlos@email.com  -> Administrador (pode alterar o status dos chamados)
 - ana@email.com     -> Usuario
 - pedro@email.com   -> Usuario

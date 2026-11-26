@@ -1,7 +1,7 @@
 HELPDESK FACIL - PHP + MySQL
 
 REQUISITOS
-- XAMPP com Apache e MySQL/MariaDB
+- XAMPP com Apache e MySQL
 - Navegador
 - VS Code (opcional)
 
@@ -30,7 +30,7 @@ BANCO DE DADOS
 O SQL inclui registros iniciais de exemplo para testar o sistema.
 
 CONEXAO
-A configuracao padrao em config/conexao.php usa host localhost, banco helpdesk_facil, usuario root e senha vazia. Altere se necessario.
+A configuração padrão em config/conexao.php usa host localhost, banco helpdesk_facil, usuario root e senha vazia. Altere se necessario.
 
 FUNCIONALIDADES
 - Painel com totais por status e chamados recentes.

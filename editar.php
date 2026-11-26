@@ -73,6 +73,7 @@ require __DIR__ . '/includes/header.php';
   <form method="post" class="ticket-form">
     <label>Título do problema<input name="titulo" maxlength="100" required value="<?= e($chamado['titulo']) ?>"></label>
     <?php if (isAdmin()): ?>
+<<<<<<< HEAD
       <label>Solicitante<input name="solicitante" list="lista-solicitantes" maxlength="100" required autocomplete="off"
           value="<?= e($chamado['solicitante']) ?>" placeholder="Digite o nome do solicitante"></label>
       <datalist id="lista-solicitantes"><?php foreach ($usuarios as $u): ?>
@@ -81,6 +82,16 @@ require __DIR__ . '/includes/header.php';
     <?php else: ?>
       <label>Solicitante<input value="<?= e($chamado['solicitante']) ?>" readonly aria-readonly="true" style="background:#f2f4f7;cursor:not-allowed">
         <small style="color:#667085;font-weight:400">Somente o administrador pode alterar o solicitante.</small></label>
+=======
+    <label>Solicitante<input name="solicitante" list="lista-solicitantes" maxlength="100" required autocomplete="off"
+        value="<?= e($chamado['solicitante']) ?>" placeholder="Digite o nome do solicitante"></label>
+    <datalist id="lista-solicitantes"><?php foreach ($usuarios as $u): ?>
+        <option value="<?= e($u['nome']) ?>"></option><?php endforeach; ?>
+    </datalist>
+    <?php else: ?>
+    <label>Solicitante<input value="<?= e($chamado['solicitante']) ?>" readonly aria-readonly="true" style="background:#f2f4f7;cursor:not-allowed">
+      <small style="color:#667085;font-weight:400">Somente o administrador pode alterar o solicitante.</small></label>
+>>>>>>> 78dbd40f29d89a7c6e82498874644f14c9b85af6
     <?php endif; ?>
     <div class="form-row">
       <label>Categoria<select name="id_categoria" required><?php foreach ($categorias as $cat): ?>

@@ -204,5 +204,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </footer>
   </main>
 </body>
+<<<<<<< HEAD
 
 </html>
+=======
+</html>
+
+>>>>>>> 78dbd40f29d89a7c6e82498874644f14c9b85af6

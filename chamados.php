@@ -59,11 +59,11 @@ require __DIR__ . '/includes/header.php';
               <td><?= celulaStatus($c, 'chamados', $busca) ?></td>
               <td><?= date('d/m/Y H:i', strtotime($c['data_abertura'])) ?></td>
               <td class="actions">
-              <?php if (podeGerenciarChamado($c)): ?><a href="editar.php?id=<?= (int)$c['id_chamado'] ?>">Editar</a>
-                <form method="post" action="excluir.php" onsubmit="return confirm('Tem certeza que deseja excluir este chamado?');">
-                  <input type="hidden" name="id" value="<?= (int)$c['id_chamado'] ?>"><button class="link-danger" type="submit">Excluir</button>
-                </form>
-              <?php else: ?><span class="muted">—</span><?php endif; ?>
+                <?php if (podeGerenciarChamado($c)): ?><a href="editar.php?id=<?= (int)$c['id_chamado'] ?>">Editar</a>
+                  <form method="post" action="excluir.php" onsubmit="return confirm('Tem certeza que deseja excluir este chamado?');">
+                    <input type="hidden" name="id" value="<?= (int)$c['id_chamado'] ?>"><button class="link-danger" type="submit">Excluir</button>
+                  </form>
+                <?php else: ?><span class="muted">—</span><?php endif; ?>
               </td>
             </tr>
           <?php endforeach; ?>

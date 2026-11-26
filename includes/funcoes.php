@@ -117,11 +117,7 @@ function celulaStatus(array $chamado, string $retorno, string $busca = ''): stri
     $html .= '<input type="hidden" name="retorno" value="' . e($retorno) . '">';
     $html .= '<input type="hidden" name="busca" value="' . e($busca) . '">';
     $html .= '<select name="status" class="status status-select status-' . $classe . '"'
-<<<<<<< HEAD
-           . ' aria-label="Status do chamado #' . $id . '" onchange="this.form.submit()">';
-=======
         . ' aria-label="Status do chamado #' . $id . '" onchange="this.form.submit()">';
->>>>>>> b40858aabcccdda7925152aa12ba66ca8bc4d75e
     foreach (['Aberto', 'Em andamento', 'Resolvido'] as $opcao) {
         $html .= '<option value="' . e($opcao) . '"' . ($opcao === $status ? ' selected' : '') . '>' . e($opcao) . '</option>';
     }
